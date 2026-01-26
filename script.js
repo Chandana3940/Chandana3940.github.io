@@ -8,10 +8,8 @@ document.addEventListener('DOMContentLoaded', function() {
 function initializeWebsite() {
     try {
         createParticles();
-        createSkillWeb();
+        setupSidebar();
         setupNavigation();
-        setupScrollEffects();
-        setupScrollToTop();
         setupProfileImage();
         console.log('✅ Portfolio initialized successfully!');
     } catch (error) {
@@ -28,7 +26,7 @@ function createParticles() {
             return;
         }
         
-        const particleCount = 50;
+        const particleCount = 30;
         
         for (let i = 0; i < particleCount; i++) {
             const particle = document.createElement('div');
@@ -45,164 +43,98 @@ function createParticles() {
     }
 }
 
-// Create Skill Web
-function createSkillWeb() {
+// Setup sidebar functionality
+function setupSidebar() {
     try {
-        const skills = [
-            { name: 'GenAI & LLMs', value: 95, angle: 0 },
-            { name: 'ML & Deep Learning', value: 90, angle: 60 },
-            { name: 'Cloud & MLOps', value: 88, angle: 120 },
-            { name: 'Data Engineering', value: 85, angle: 180 },
-            { name: 'Analytics', value: 87, angle: 240 },
-            { name: 'Programming', value: 93, angle: 300 }
-        ];
-
-        const center = 300;
-        const maxRadius = 240;
-        const webLines = document.getElementById('webLines');
-        const skillPoints = document.getElementById('skillPoints');
-        const skillLabels = document.getElementById('skillLabels');
-        const skillArea = document.getElementById('skillArea');
-
-        // Check if all required elements exist
-        if (!webLines || !skillPoints || !skillLabels || !skillArea) {
-            console.error('❌ Required skill web elements not found');
-            console.log('Missing elements:', {
-                webLines: !!webLines,
-                skillPoints: !!skillPoints,
-                skillLabels: !!skillLabels,
-                skillArea: !!skillArea
+        const contactToggle = document.getElementById('contactToggle');
+        const contactInfo = document.getElementById('contactInfo');
+        const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+        const sidebar = document.getElementById('sidebar');
+        const sidebarClose = document.getElementById('sidebarClose');
+        
+        // Contact toggle
+        if (contactToggle && contactInfo) {
+            contactToggle.addEventListener('click', function() {
+                this.classList.toggle('active');
+                contactInfo.classList.toggle('show');
             });
-            return;
         }
-
-        let polygonPoints = '';
-
-        // Draw web lines and create skill points
-        skills.forEach((skill, index) => {
-            const angleRad = (skill.angle - 90) * (Math.PI / 180);
-            
-            // Calculate end point for web line
-            const lineX = center + maxRadius * Math.cos(angleRad);
-            const lineY = center + maxRadius * Math.sin(angleRad);
-            
-            // Create web line
-            const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
-            line.setAttribute('x1', center);
-            line.setAttribute('y1', center);
-            line.setAttribute('x2', lineX);
-            line.setAttribute('y2', lineY);
-            line.setAttribute('class', 'web-line');
-            webLines.appendChild(line);
-            
-            // Calculate skill point position
-            const skillRadius = (skill.value / 100) * maxRadius;
-            const pointX = center + skillRadius * Math.cos(angleRad);
-            const pointY = center + skillRadius * Math.sin(angleRad);
-            
-            // Add to polygon points
-            polygonPoints += `${pointX},${pointY} `;
-            
-            // Create skill point
-            const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-            circle.setAttribute('cx', pointX);
-            circle.setAttribute('cy', pointY);
-            circle.setAttribute('r', 6);
-            circle.setAttribute('class', 'skill-point');
-            skillPoints.appendChild(circle);
-            
-            // Create skill label
-            const labelRadius = maxRadius + 60;
-            const labelX = center + labelRadius * Math.cos(angleRad);
-            const labelY = center + labelRadius * Math.sin(angleRad);
-            
-            const label = document.createElement('div');
-            label.className = 'skill-label';
-            label.innerHTML = `${skill.name}<span class="skill-label-value">${skill.value}%</span>`;
-            label.style.left = `${labelX}px`;
-            label.style.top = `${labelY}px`;
-            label.style.transform = 'translate(-50%, -50%)';
-            skillLabels.appendChild(label);
-            
-            // Add interactive hover effects
-            circle.addEventListener('mouseenter', () => {
-                label.classList.add('active');
-                circle.style.r = '8';
+        
+        // Mobile menu toggle
+        if (mobileMenuToggle && sidebar) {
+            mobileMenuToggle.addEventListener('click', function() {
+                sidebar.classList.toggle('active');
             });
-            
-            circle.addEventListener('mouseleave', () => {
-                label.classList.remove('active');
-                circle.style.r = '6';
+        }
+        
+        // Sidebar close button
+        if (sidebarClose && sidebar) {
+            sidebarClose.addEventListener('click', function() {
+                sidebar.classList.remove('active');
             });
-            
-            label.addEventListener('mouseenter', () => {
-                circle.setAttribute('r', 8);
-            });
-            
-            label.addEventListener('mouseleave', () => {
-                circle.setAttribute('r', 6);
-            });
+        }
+        
+        // Close sidebar when clicking outside on mobile
+        document.addEventListener('click', function(event) {
+            if (window.innerWidth <= 768) {
+                if (sidebar && 
+                    sidebar.classList.contains('active') && 
+                    !sidebar.contains(event.target) && 
+                    !mobileMenuToggle.contains(event.target)) {
+                    sidebar.classList.remove('active');
+                }
+            }
         });
-
-        // Set polygon points for skill area
-        skillArea.setAttribute('points', polygonPoints.trim());
-        console.log('🕸️ Skill web created successfully');
+        
+        console.log('📱 Sidebar setup complete');
     } catch (error) {
-        console.error('❌ Error creating skill web:', error);
+        console.error('❌ Error setting up sidebar:', error);
     }
 }
 
 // Setup navigation
 function setupNavigation() {
     try {
-        // Smooth scroll for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
+        const navLinks = document.querySelectorAll('.nav-link');
+        const pages = document.querySelectorAll('.page');
+        
+        // Handle navigation on same page
+        navLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
                 const href = this.getAttribute('href');
-                if (href !== '#' && href.startsWith('#')) {
+                
+                // Only prevent default for same-page navigation (hash links)
+                if (href && href.startsWith('#')) {
                     e.preventDefault();
-                    const target = document.querySelector(href);
-                    if (target) {
-                        // Calculate offset for fixed nav
-                        const navHeight = document.querySelector('nav').offsetHeight;
-                        const targetPosition = target.offsetTop - navHeight;
-                        
-                        window.scrollTo({
-                            top: targetPosition,
-                            behavior: 'smooth'
-                        });
-                        
-                        // Close mobile menu if open
-                        const navLinks = document.getElementById('navLinks');
-                        if (navLinks) {
-                            navLinks.classList.remove('active');
-                        }
+                    const pageId = href.substring(1);
+                    switchPage(pageId);
+                    
+                    // Update active nav link
+                    navLinks.forEach(l => l.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // Close mobile sidebar if open
+                    const sidebar = document.getElementById('sidebar');
+                    if (sidebar && window.innerWidth <= 768) {
+                        sidebar.classList.remove('active');
                     }
                 }
+                // For skills.html link, let it navigate normally
             });
         });
-
-        // Mobile menu toggle
-        const menuToggle = document.getElementById('menuToggle');
-        const navLinks = document.getElementById('navLinks');
         
-        if (menuToggle && navLinks) {
-            menuToggle.addEventListener('click', function(e) {
-                e.stopPropagation();
-                navLinks.classList.toggle('active');
-                
-                // Animate hamburger
-                this.classList.toggle('active');
-            });
+        // Check URL hash on load and switch to that page
+        const hash = window.location.hash.substring(1);
+        if (hash && document.getElementById(hash)) {
+            switchPage(hash);
             
-            // Close menu when clicking outside
-            document.addEventListener('click', function(event) {
-                const isClickInsideNav = navLinks.contains(event.target);
-                const isClickOnToggle = menuToggle.contains(event.target);
-                
-                if (!isClickInsideNav && !isClickOnToggle && navLinks.classList.contains('active')) {
-                    navLinks.classList.remove('active');
-                    menuToggle.classList.remove('active');
+            // Update active nav link
+            navLinks.forEach(link => {
+                const href = link.getAttribute('href');
+                if (href === `#${hash}`) {
+                    link.classList.add('active');
+                } else {
+                    link.classList.remove('active');
                 }
             });
         }
@@ -213,95 +145,26 @@ function setupNavigation() {
     }
 }
 
-// Setup scroll effects
-function setupScrollEffects() {
-    try {
-        const sections = document.querySelectorAll('section');
-        
-        if (sections.length === 0) {
-            console.warn('⚠️ No sections found for scroll animation');
-            return;
+// Switch between pages
+function switchPage(pageId) {
+    const pages = document.querySelectorAll('.page');
+    
+    pages.forEach(page => {
+        if (page.id === pageId) {
+            page.classList.add('active');
+        } else {
+            page.classList.remove('active');
         }
-        
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -100px 0px'
-        };
-
-        const observer = new IntersectionObserver(function(entries) {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
-            });
-        }, observerOptions);
-
-        sections.forEach(section => {
-            observer.observe(section);
-        });
-        
-        // Add active nav link highlighting
-        const navLinks = document.querySelectorAll('.nav-links a[href^="#"]');
-        
-        const navObserver = new IntersectionObserver(function(entries) {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const id = entry.target.getAttribute('id');
-                    navLinks.forEach(link => {
-                        link.classList.remove('active');
-                        if (link.getAttribute('href') === `#${id}`) {
-                            link.classList.add('active');
-                        }
-                    });
-                }
-            });
-        }, {
-            threshold: 0.5
-        });
-        
-        sections.forEach(section => {
-            if (section.id) {
-                navObserver.observe(section);
-            }
-        });
-        
-        console.log('👁️ Scroll effects setup complete');
-    } catch (error) {
-        console.error('❌ Error setting up scroll effects:', error);
-    }
-}
-
-// Setup scroll to top button
-function setupScrollToTop() {
-    try {
-        const scrollTopBtn = document.getElementById('scrollTop');
-        
-        if (!scrollTopBtn) {
-            console.warn('⚠️ Scroll to top button not found');
-            return;
-        }
-        
-        // Show/hide button based on scroll position
-        window.addEventListener('scroll', function() {
-            if (window.pageYOffset > 300) {
-                scrollTopBtn.classList.add('visible');
-            } else {
-                scrollTopBtn.classList.remove('visible');
-            }
-        });
-
-        // Scroll to top on click
-        scrollTopBtn.addEventListener('click', function() {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
-        });
-        
-        console.log('⬆️ Scroll to top setup complete');
-    } catch (error) {
-        console.error('❌ Error setting up scroll to top:', error);
-    }
+    });
+    
+    // Update URL hash without scrolling
+    history.pushState(null, null, `#${pageId}`);
+    
+    // Scroll to top smoothly
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+    });
 }
 
 // Profile image error handler
@@ -317,18 +180,17 @@ function setupProfileImage() {
                 fallback.style.cssText = `
                     width: 100%;
                     height: 100%;
-                    background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+                    background: linear-gradient(135deg, var(--accent-primary), #8b5cf6);
                     display: flex;
                     align-items: center;
                     justify-content: center;
-                    font-size: 4rem;
+                    font-size: 3rem;
                     font-weight: 800;
                     color: white;
-                    border-radius: inherit;
+                    border-radius: 16px;
                 `;
                 fallback.textContent = 'C';
                 
-                // Remove the error handler and image element
                 this.parentElement.appendChild(fallback);
                 this.remove();
             };
@@ -338,9 +200,43 @@ function setupProfileImage() {
     }
 }
 
-// Add performance monitoring
+// Handle browser back/forward
+window.addEventListener('popstate', function() {
+    const hash = window.location.hash.substring(1);
+    if (hash) {
+        switchPage(hash);
+        
+        // Update active nav link
+        const navLinks = document.querySelectorAll('.nav-link');
+        navLinks.forEach(link => {
+            const href = link.getAttribute('href');
+            if (href === `#${hash}`) {
+                link.classList.add('active');
+            } else {
+                link.classList.remove('active');
+            }
+        });
+    }
+});
+
+// Add page load logging
 window.addEventListener('load', function() {
     console.log('📊 Page fully loaded');
+    
+    // Animate skill bars on skills page if present
+    const skillBars = document.querySelectorAll('.skill-progress');
+    if (skillBars.length > 0) {
+        // Small delay to ensure CSS is loaded
+        setTimeout(() => {
+            skillBars.forEach(bar => {
+                const width = bar.style.width;
+                bar.style.width = '0%';
+                setTimeout(() => {
+                    bar.style.width = width;
+                }, 100);
+            });
+        }, 200);
+    }
     
     // Log performance metrics
     if (window.performance) {
@@ -350,16 +246,26 @@ window.addEventListener('load', function() {
     }
 });
 
-// Add error tracking
+// Global error handler
 window.addEventListener('error', function(e) {
     console.error('🔴 Global error caught:', e.error);
 });
 
-// Handle visibility change
-document.addEventListener('visibilitychange', function() {
-    if (document.hidden) {
-        console.log('👋 Page hidden');
-    } else {
-        console.log('👀 Page visible');
+// Smooth scroll for any remaining anchor links
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    if (!anchor.classList.contains('nav-link')) {
+        anchor.addEventListener('click', function (e) {
+            const href = this.getAttribute('href');
+            if (href !== '#' && href.startsWith('#')) {
+                e.preventDefault();
+                const target = document.querySelector(href);
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            }
+        });
     }
 });
