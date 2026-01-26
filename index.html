@@ -9,298 +9,232 @@
 <body>
     <div class="bg-animation" id="bgAnimation"></div>
 
-    <!-- Navigation -->
-    <nav>
-        <div class="nav-container">
-            <div class="logo">Chandana</div>
-            <div class="menu-toggle" id="menuToggle">
-                <span></span>
-                <span></span>
-                <span></span>
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-content">
+            <button class="sidebar-close" id="sidebarClose">&times;</button>
+            
+            <div class="profile-info">
+                <div class="avatar-box">
+                    <img src="profile-photo.jpeg" alt="Hari Chandana Vadige" id="profileImg">
+                </div>
+                <h1 class="profile-name">Hari Chandana Vadige</h1>
+                <p class="profile-title">AI/ML Engineer</p>
             </div>
-            <ul class="nav-links" id="navLinks">
-                <li><a href="#about">About</a></li>
-                <li><a href="#skills">Skills</a></li>
-                <li><a href="#experience">Experience</a></li>
-                <li><a href="Resume.pdf" download>Resume</a></li>
-                <li><a href="#contact">Contact</a></li>
+
+            <button class="contact-toggle" id="contactToggle">
+                <span class="toggle-icon">▼</span>
+                Show Contacts
+            </button>
+
+            <div class="contact-info" id="contactInfo">
+                <div class="contact-item">
+                    <div class="contact-icon">📧</div>
+                    <div class="contact-details">
+                        <p class="contact-label">Email</p>
+                        <a href="mailto:vhchandana123@gmail.com" class="contact-link">vhchandana123@gmail.com</a>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">📱</div>
+                    <div class="contact-details">
+                        <p class="contact-label">Phone</p>
+                        <a href="tel:+15202835760" class="contact-link">+1 (520) 283-5760</a>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">📍</div>
+                    <div class="contact-details">
+                        <p class="contact-label">Location</p>
+                        <p class="contact-text">Tucson, Arizona, USA</p>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">💼</div>
+                    <div class="contact-details">
+                        <p class="contact-label">LinkedIn</p>
+                        <a href="https://www.linkedin.com/in/hari-chandana-vadige-5a871218a/" target="_blank" class="contact-link">View Profile</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="separator"></div>
+
+            <div class="social-links">
+                <a href="https://www.linkedin.com/in/hari-chandana-vadige-5a871218a/" target="_blank" class="social-icon" title="LinkedIn">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Mobile Menu Toggle -->
+    <button class="mobile-menu-toggle" id="mobileMenuToggle">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Navigation -->
+        <nav class="navbar">
+            <ul class="nav-list">
+                <li><a href="#about" class="nav-link active" data-page="about">About</a></li>
+                <li><a href="#resume" class="nav-link" data-page="resume">Resume</a></li>
+                <li><a href="skills.html" class="nav-link">Skills</a></li>
+                <li><a href="#contact" class="nav-link" data-page="contact">Contact</a></li>
             </ul>
-        </div>
-    </nav>
+        </nav>
 
-    <!-- Scroll to Top Button -->
-    <div class="scroll-top" id="scrollTop"></div>
+        <!-- About Page -->
+        <article class="page active" id="about">
+            <header class="page-header">
+                <h2 class="page-title">About Me</h2>
+            </header>
 
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="hero-content">
-            <div class="profile-photo">
-                <img src="profile-photo.jpeg" alt="Hari Chandana Vadige" id="profileImg">
-            </div>
-            <h1 class="hero-name">I am <span class="hero-highlight">Hari Chandana Vadige</span></h1>
-            <p class="hero-description">An AI/ML Engineer with 5+ years of experience in Machine Learning, GenAI, Data Science, and MLOps. I build production-grade AI systems that solve real-world problems.</p>
-            <div class="cta-buttons">
-                <a href="#contact" class="btn btn-primary">Get In Touch</a>
-                <a href="Resume.pdf" class="btn btn-secondary" download>Download Resume</a>
-            </div>
-        </div>
-    </section>
-
-    <!-- About Section -->
-    <section id="about">
-        <div class="container">
-            <h2 class="section-title">About Me</h2>
-            <div class="about-content">
-                <div class="about-text">
-                    <p>AI/ML Engineer specializing in production-grade machine learning and GenAI systems with proven impact at Wells Fargo, Johnson & Johnson, Target, and State Farm. Expert in the complete ML lifecycle—from data engineering to model deployment and monitoring using modern MLOps practices.</p>
-                    <p>Currently building GenAI-powered financial intelligence platforms leveraging RAG architectures, LangChain, and vector databases. Focused on responsible AI development with emphasis on model explainability, regulatory compliance, and human-centered design across regulated industries.</p>
-                    <p>Deep expertise in transforming complex healthcare, financial, and e-commerce challenges into scalable AI solutions that deliver measurable business outcomes while maintaining transparency and compliance.</p>
-                </div>
-                <div class="stats">
-                    <div class="stat-card">
-                        <div class="stat-number">5+</div>
-                        <div class="stat-label">Years Experience</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-number">4</div>
-                        <div class="stat-label">Fortune 500 Companies</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-number">3</div>
-                        <div class="stat-label">Cloud Platforms</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-number">10+</div>
-                        <div class="stat-label">Production Systems</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Skills Section -->
-    <section id="skills">
-        <div class="container">
-            <h2 class="section-title">Technical Skills</h2>
-            <div class="skills-container">
-                <div class="skill-web-container">
-                    <div class="skill-web">
-                        <svg class="web-svg" viewBox="0 0 600 600">
-                            <!-- Background web circles -->
-                            <circle class="web-circle" cx="300" cy="300" r="240" />
-                            <circle class="web-circle" cx="300" cy="300" r="180" />
-                            <circle class="web-circle" cx="300" cy="300" r="120" />
-                            <circle class="web-circle" cx="300" cy="300" r="60" />
-                            
-                            <!-- Web lines (will be drawn by JS) -->
-                            <g id="webLines"></g>
-                            
-                            <!-- Skill area polygon (will be drawn by JS) -->
-                            <polygon id="skillArea" class="skill-area" />
-                            
-                            <!-- Skill points (will be drawn by JS) -->
-                            <g id="skillPoints"></g>
-                        </svg>
-                        
-                        <!-- Skill labels (will be positioned by JS) -->
-                        <div id="skillLabels"></div>
-                    </div>
-                </div>
-
-                <div class="skills-legend">
-                    <div class="legend-item">
-                        <h4>🤖 GenAI & LLMs</h4>
-                        <div class="legend-tags">
-                            <span class="legend-tag">LangChain</span>
-                            <span class="legend-tag">RAG</span>
-                            <span class="legend-tag">OpenAI</span>
-                            <span class="legend-tag">FAISS</span>
-                            <span class="legend-tag">Vector DBs</span>
-                        </div>
-                    </div>
-                    <div class="legend-item">
-                        <h4>🧠 ML & Deep Learning</h4>
-                        <div class="legend-tags">
-                            <span class="legend-tag">XGBoost</span>
-                            <span class="legend-tag">PyTorch</span>
-                            <span class="legend-tag">TensorFlow</span>
-                            <span class="legend-tag">Scikit-learn</span>
-                        </div>
-                    </div>
-                    <div class="legend-item">
-                        <h4>☁️ Cloud & MLOps</h4>
-                        <div class="legend-tags">
-                            <span class="legend-tag">AWS</span>
-                            <span class="legend-tag">Azure</span>
-                            <span class="legend-tag">Docker</span>
-                            <span class="legend-tag">Kubernetes</span>
-                            <span class="legend-tag">MLflow</span>
-                        </div>
-                    </div>
-                    <div class="legend-item">
-                        <h4>💾 Data Engineering</h4>
-                        <div class="legend-tags">
-                            <span class="legend-tag">PySpark</span>
-                            <span class="legend-tag">SQL</span>
-                            <span class="legend-tag">BigQuery</span>
-                            <span class="legend-tag">Kafka</span>
-                        </div>
-                    </div>
-                    <div class="legend-item">
-                        <h4>📊 Analytics</h4>
-                        <div class="legend-tags">
-                            <span class="legend-tag">Tableau</span>
-                            <span class="legend-tag">Power BI</span>
-                            <span class="legend-tag">SHAP</span>
-                            <span class="legend-tag">A/B Testing</span>
-                        </div>
-                    </div>
-                    <div class="legend-item">
-                        <h4>🐍 Programming</h4>
-                        <div class="legend-tags">
-                            <span class="legend-tag">Python</span>
-                            <span class="legend-tag">SQL</span>
-                            <span class="legend-tag">Git</span>
-                            <span class="legend-tag">CI/CD</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Experience Section -->
-    <section id="experience">
-        <div class="container">
-            <h2 class="section-title">Professional Experience</h2>
-            <div class="timeline">
-                <div class="timeline-item">
-                    <div class="timeline-card">
-                        <div class="timeline-header">
-                            <div class="company-role">
-                                <h3>AI Engineer</h3>
-                                <p>Wells Fargo</p>
-                            </div>
-                            <span class="timeline-date">Jan 2025 - Present</span>
-                        </div>
-                        <p class="timeline-description">Built a GenAI-powered financial intelligence platform enabling risk analysts and portfolio managers to perform contextual analysis of financial statements, credit reports, and internal policies. Designed end-to-end RAG architecture with FAISS vector search and LangChain orchestration for multi-step reasoning workflows.</p>
-                        <div class="tech-tags">
-                            <span class="tech-tag">LangChain</span>
-                            <span class="tech-tag">RAG</span>
-                            <span class="tech-tag">FAISS</span>
-                            <span class="tech-tag">FastAPI</span>
-                            <span class="tech-tag">AWS</span>
-                            <span class="tech-tag">MLflow</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="timeline-item">
-                    <div class="timeline-card">
-                        <div class="timeline-header">
-                            <div class="company-role">
-                                <h3>Machine Learning Engineer</h3>
-                                <p>Johnson & Johnson</p>
-                            </div>
-                            <span class="timeline-date">Dec 2022 - Dec 2023</span>
-                        </div>
-                        <p class="timeline-description">Developed clinical risk prediction platform to identify high-risk patient cohorts using structured EHR and claims data. Achieved ROC-AUC scores >0.85 with HIPAA-compliant feature engineering and SHAP-based explainability for regulatory review.</p>
-                        <div class="tech-tags">
-                            <span class="tech-tag">XGBoost</span>
-                            <span class="tech-tag">Azure ML</span>
-                            <span class="tech-tag">Docker</span>
-                            <span class="tech-tag">Terraform</span>
-                            <span class="tech-tag">SHAP</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="timeline-item">
-                    <div class="timeline-card">
-                        <div class="timeline-header">
-                            <div class="company-role">
-                                <h3>Data Scientist</h3>
-                                <p>Target</p>
-                            </div>
-                            <span class="timeline-date">Oct 2021 - Nov 2022</span>
-                        </div>
-                        <p class="timeline-description">Built large-scale ML platform powering product personalization and demand forecasting. Achieved 18% improvement in recommendation precision using collaborative filtering and gradient boosting models with PySpark data pipelines.</p>
-                        <div class="tech-tags">
-                            <span class="tech-tag">PySpark</span>
-                            <span class="tech-tag">BigQuery</span>
-                            <span class="tech-tag">Vertex AI</span>
-                            <span class="tech-tag">Recommendation Systems</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="timeline-item">
-                    <div class="timeline-card">
-                        <div class="timeline-header">
-                            <div class="company-role">
-                                <h3>Associate Data Scientist</h3>
-                                <p>State Farm</p>
-                            </div>
-                            <span class="timeline-date">Jan 2020 - Sep 2021</span>
-                        </div>
-                        <p class="timeline-description">Developed product intelligence platform with churn prediction models achieving 0.82 ROC-AUC, reducing churn by 12%. Designed A/B experiments and built executive dashboards in Tableau for product leadership.</p>
-                        <div class="tech-tags">
-                            <span class="tech-tag">A/B Testing</span>
-                            <span class="tech-tag">Tableau</span>
-                            <span class="tech-tag">GCP</span>
-                            <span class="tech-tag">Product Analytics</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section id="contact">
-        <div class="container">
-            <h2 class="section-title">Let's Connect</h2>
-            <div class="contact-content">
-                <p>I'm always open to discussing AI/ML opportunities, collaboration, or just geeking out about the latest in GenAI.</p>
+            <section class="about-text">
+                <p>AI/ML Engineer specializing in production-grade machine learning and GenAI systems with proven impact at Wells Fargo, Johnson & Johnson, Target, and State Farm. Expert in the complete ML lifecycle—from data engineering to model deployment and monitoring using modern MLOps practices.</p>
                 
-                <div class="contact-info">
-                    <a href="mailto:vhchandana123@gmail.com" class="contact-item">
-                        <span class="contact-icon">📧</span>
-                        <div>
-                            <div class="contact-label">Email</div>
-                            <div class="contact-link">vhchandana123@gmail.com</div>
+                <p>Currently building GenAI-powered financial intelligence platforms leveraging RAG architectures, LangChain, and vector databases. Focused on responsible AI development with emphasis on model explainability, regulatory compliance, and human-centered design across regulated industries.</p>
+                
+                <p>Deep expertise in transforming complex healthcare, financial, and e-commerce challenges into scalable AI solutions that deliver measurable business outcomes while maintaining transparency and compliance.</p>
+            </section>
+
+            <section class="service-section">
+                <h3 class="section-title">What I Do</h3>
+                <div class="service-list">
+                    <div class="service-item">
+                        <div class="service-icon-box">
+                            <span class="service-icon">🤖</span>
+                        </div>
+                        <div class="service-content">
+                            <h4 class="service-title">GenAI & LLM Solutions</h4>
+                            <p class="service-text">Building production-grade RAG systems, chatbots, and intelligent automation using LangChain, OpenAI, and vector databases for enterprise applications.</p>
+                        </div>
+                    </div>
+
+                    <div class="service-item">
+                        <div class="service-icon-box">
+                            <span class="service-icon">🧠</span>
+                        </div>
+                        <div class="service-content">
+                            <h4 class="service-title">Machine Learning Engineering</h4>
+                            <p class="service-text">Developing predictive models, recommendation systems, and risk assessment platforms using XGBoost, PyTorch, and TensorFlow with explainable AI techniques.</p>
+                        </div>
+                    </div>
+
+                    <div class="service-item">
+                        <div class="service-icon-box">
+                            <span class="service-icon">☁️</span>
+                        </div>
+                        <div class="service-content">
+                            <h4 class="service-title">MLOps & Cloud Infrastructure</h4>
+                            <p class="service-text">Designing scalable ML pipelines, containerized deployments, and monitoring systems on AWS, Azure, and GCP with CI/CD automation.</p>
+                        </div>
+                    </div>
+
+                    <div class="service-item">
+                        <div class="service-icon-box">
+                            <span class="service-icon">📊</span>
+                        </div>
+                        <div class="service-content">
+                            <h4 class="service-title">Data Science & Analytics</h4>
+                            <p class="service-text">Extracting insights from complex datasets using statistical analysis, A/B testing, and interactive dashboards with Tableau and Power BI.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </article>
+
+        <!-- Resume Page -->
+        <article class="page" id="resume">
+            <header class="page-header">
+                <h2 class="page-title">Resume</h2>
+                <a href="Resume.pdf" class="download-btn" download>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                        <polyline points="7 10 12 15 17 10"/>
+                        <line x1="12" y1="15" x2="12" y2="3"/>
+                    </svg>
+                    Download PDF
+                </a>
+            </header>
+
+            <section class="timeline-section">
+                <h3 class="section-title">Experience</h3>
+                <ol class="timeline-list">
+                    <li class="timeline-item">
+                        <h4 class="timeline-title">AI Engineer</h4>
+                        <span class="timeline-company">Wells Fargo</span>
+                        <span class="timeline-period">Jan 2025 — Present</span>
+                        <p class="timeline-text">Built a GenAI-powered financial intelligence platform enabling risk analysts and portfolio managers to perform contextual analysis of financial statements, credit reports, and internal policies. Designed end-to-end RAG architecture with FAISS vector search and LangChain orchestration for multi-step reasoning workflows.</p>
+                    </li>
+
+                    <li class="timeline-item">
+                        <h4 class="timeline-title">Machine Learning Engineer</h4>
+                        <span class="timeline-company">Johnson & Johnson</span>
+                        <span class="timeline-period">Dec 2022 — Dec 2023</span>
+                        <p class="timeline-text">Developed clinical risk prediction platform to identify high-risk patient cohorts using structured EHR and claims data. Achieved ROC-AUC scores >0.85 with HIPAA-compliant feature engineering and SHAP-based explainability for regulatory review.</p>
+                    </li>
+
+                    <li class="timeline-item">
+                        <h4 class="timeline-title">Data Scientist</h4>
+                        <span class="timeline-company">Target</span>
+                        <span class="timeline-period">Oct 2021 — Nov 2022</span>
+                        <p class="timeline-text">Built large-scale ML platform powering product personalization and demand forecasting. Achieved 18% improvement in recommendation precision using collaborative filtering and gradient boosting models with PySpark data pipelines.</p>
+                    </li>
+
+                    <li class="timeline-item">
+                        <h4 class="timeline-title">Associate Data Scientist</h4>
+                        <span class="timeline-company">State Farm</span>
+                        <span class="timeline-period">Jan 2020 — Sep 2021</span>
+                        <p class="timeline-text">Developed product intelligence platform with churn prediction models achieving 0.82 ROC-AUC, reducing churn by 12%. Designed A/B experiments and built executive dashboards in Tableau for product leadership.</p>
+                    </li>
+                </ol>
+            </section>
+        </article>
+
+        <!-- Contact Page -->
+        <article class="page" id="contact">
+            <header class="page-header">
+                <h2 class="page-title">Contact</h2>
+            </header>
+
+            <section class="contact-form-section">
+                <h3 class="section-title">Get In Touch</h3>
+                <p class="form-intro">I'm always open to discussing AI/ML opportunities, collaboration, or just geeking out about the latest in GenAI.</p>
+                
+                <div class="contact-methods">
+                    <a href="mailto:vhchandana123@gmail.com" class="contact-method">
+                        <div class="method-icon">📧</div>
+                        <div class="method-content">
+                            <h4>Email</h4>
+                            <p>vhchandana123@gmail.com</p>
                         </div>
                     </a>
-                    <a href="tel:5202835760" class="contact-item">
-                        <span class="contact-icon">📱</span>
-                        <div>
-                            <div class="contact-label">Phone</div>
-                            <div class="contact-link">+1 (520) 283-5760</div>
+                    
+                    <a href="tel:+15202835760" class="contact-method">
+                        <div class="method-icon">📱</div>
+                        <div class="method-content">
+                            <h4>Phone</h4>
+                            <p>+1 (520) 283-5760</p>
                         </div>
                     </a>
-                    <a href="https://www.linkedin.com/in/hari-chandana-vadige-5a871218a/" target="_blank" class="contact-item">
-                        <span class="contact-icon">💼</span>
-                        <div>
-                            <div class="contact-label">LinkedIn</div>
-                            <div class="contact-link">Connect on LinkedIn</div>
+                    
+                    <a href="https://www.linkedin.com/in/hari-chandana-vadige-5a871218a/" target="_blank" class="contact-method">
+                        <div class="method-icon">💼</div>
+                        <div class="method-content">
+                            <h4>LinkedIn</h4>
+                            <p>Connect with me</p>
                         </div>
                     </a>
                 </div>
-
-                <div class="cta-buttons">
-                    <a href="mailto:vhchandana123@gmail.com" class="btn btn-primary">Send Email</a>
-                    <a href="Resume.pdf" class="btn btn-secondary" download>Download Resume</a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer>
-        <div class="container">
-            <p>&copy; 2025 Hari Chandana Vadige. All rights reserved.</p>
-        </div>
-    </footer>
+            </section>
+        </article>
+    </main>
 
     <script src="script.js"></script>
 </body>
