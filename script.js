@@ -1,6 +1,6 @@
 // Wait for DOM to be fully loaded
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('DOM loaded, initializing...');
+    console.log('🚀 Portfolio initialization started...');
     initializeWebsite();
 });
 
@@ -12,9 +12,10 @@ function initializeWebsite() {
         setupNavigation();
         setupScrollEffects();
         setupScrollToTop();
-        console.log('Website initialized successfully');
+        setupProfileImage();
+        console.log('✅ Portfolio initialized successfully!');
     } catch (error) {
-        console.error('Initialization error:', error);
+        console.error('❌ Initialization error:', error);
     }
 }
 
@@ -23,7 +24,7 @@ function createParticles() {
     try {
         const bg = document.getElementById('bgAnimation');
         if (!bg) {
-            console.warn('Background animation element not found');
+            console.warn('⚠️ Background animation element not found');
             return;
         }
         
@@ -38,9 +39,9 @@ function createParticles() {
             particle.style.animationDuration = (20 + Math.random() * 10) + 's';
             bg.appendChild(particle);
         }
-        console.log('Particles created successfully');
+        console.log('✨ Particles created successfully');
     } catch (error) {
-        console.error('Error creating particles:', error);
+        console.error('❌ Error creating particles:', error);
     }
 }
 
@@ -65,7 +66,13 @@ function createSkillWeb() {
 
         // Check if all required elements exist
         if (!webLines || !skillPoints || !skillLabels || !skillArea) {
-            console.error('Required skill web elements not found');
+            console.error('❌ Required skill web elements not found');
+            console.log('Missing elements:', {
+                webLines: !!webLines,
+                skillPoints: !!skillPoints,
+                skillLabels: !!skillLabels,
+                skillArea: !!skillArea
+            });
             return;
         }
 
@@ -117,35 +124,31 @@ function createSkillWeb() {
             label.style.transform = 'translate(-50%, -50%)';
             skillLabels.appendChild(label);
             
-            // Add hover effect to sync label and point
+            // Add interactive hover effects
             circle.addEventListener('mouseenter', () => {
-                label.style.color = '#00d4ff';
-                label.style.borderColor = '#00d4ff';
-                label.style.transform = 'translate(-50%, -50%) scale(1.1)';
+                label.classList.add('active');
+                circle.style.r = '8';
             });
             
             circle.addEventListener('mouseleave', () => {
-                label.style.color = '#ffffff';
-                label.style.borderColor = 'rgba(255, 255, 255, 0.2)';
-                label.style.transform = 'translate(-50%, -50%)';
+                label.classList.remove('active');
+                circle.style.r = '6';
             });
             
             label.addEventListener('mouseenter', () => {
                 circle.setAttribute('r', 8);
-                circle.style.fill = '#ff6b6b';
             });
             
             label.addEventListener('mouseleave', () => {
                 circle.setAttribute('r', 6);
-                circle.style.fill = '#00d4ff';
             });
         });
 
         // Set polygon points for skill area
         skillArea.setAttribute('points', polygonPoints.trim());
-        console.log('Skill web created successfully');
+        console.log('🕸️ Skill web created successfully');
     } catch (error) {
-        console.error('Error creating skill web:', error);
+        console.error('❌ Error creating skill web:', error);
     }
 }
 
@@ -160,10 +163,15 @@ function setupNavigation() {
                     e.preventDefault();
                     const target = document.querySelector(href);
                     if (target) {
-                        target.scrollIntoView({
-                            behavior: 'smooth',
-                            block: 'start'
+                        // Calculate offset for fixed nav
+                        const navHeight = document.querySelector('nav').offsetHeight;
+                        const targetPosition = target.offsetTop - navHeight;
+                        
+                        window.scrollTo({
+                            top: targetPosition,
+                            behavior: 'smooth'
                         });
+                        
                         // Close mobile menu if open
                         const navLinks = document.getElementById('navLinks');
                         if (navLinks) {
@@ -179,21 +187,29 @@ function setupNavigation() {
         const navLinks = document.getElementById('navLinks');
         
         if (menuToggle && navLinks) {
-            menuToggle.addEventListener('click', function() {
+            menuToggle.addEventListener('click', function(e) {
+                e.stopPropagation();
                 navLinks.classList.toggle('active');
+                
+                // Animate hamburger
+                this.classList.toggle('active');
             });
             
             // Close menu when clicking outside
             document.addEventListener('click', function(event) {
-                if (!menuToggle.contains(event.target) && !navLinks.contains(event.target)) {
+                const isClickInsideNav = navLinks.contains(event.target);
+                const isClickOnToggle = menuToggle.contains(event.target);
+                
+                if (!isClickInsideNav && !isClickOnToggle && navLinks.classList.contains('active')) {
                     navLinks.classList.remove('active');
+                    menuToggle.classList.remove('active');
                 }
             });
         }
         
-        console.log('Navigation setup complete');
+        console.log('🧭 Navigation setup complete');
     } catch (error) {
-        console.error('Error setting up navigation:', error);
+        console.error('❌ Error setting up navigation:', error);
     }
 }
 
@@ -203,7 +219,7 @@ function setupScrollEffects() {
         const sections = document.querySelectorAll('section');
         
         if (sections.length === 0) {
-            console.warn('No sections found for scroll animation');
+            console.warn('⚠️ No sections found for scroll animation');
             return;
         }
         
@@ -224,9 +240,34 @@ function setupScrollEffects() {
             observer.observe(section);
         });
         
-        console.log('Scroll effects setup complete');
+        // Add active nav link highlighting
+        const navLinks = document.querySelectorAll('.nav-links a[href^="#"]');
+        
+        const navObserver = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const id = entry.target.getAttribute('id');
+                    navLinks.forEach(link => {
+                        link.classList.remove('active');
+                        if (link.getAttribute('href') === `#${id}`) {
+                            link.classList.add('active');
+                        }
+                    });
+                }
+            });
+        }, {
+            threshold: 0.5
+        });
+        
+        sections.forEach(section => {
+            if (section.id) {
+                navObserver.observe(section);
+            }
+        });
+        
+        console.log('👁️ Scroll effects setup complete');
     } catch (error) {
-        console.error('Error setting up scroll effects:', error);
+        console.error('❌ Error setting up scroll effects:', error);
     }
 }
 
@@ -236,10 +277,11 @@ function setupScrollToTop() {
         const scrollTopBtn = document.getElementById('scrollTop');
         
         if (!scrollTopBtn) {
-            console.warn('Scroll to top button not found');
+            console.warn('⚠️ Scroll to top button not found');
             return;
         }
         
+        // Show/hide button based on scroll position
         window.addEventListener('scroll', function() {
             if (window.pageYOffset > 300) {
                 scrollTopBtn.classList.add('visible');
@@ -248,6 +290,7 @@ function setupScrollToTop() {
             }
         });
 
+        // Scroll to top on click
         scrollTopBtn.addEventListener('click', function() {
             window.scrollTo({
                 top: 0,
@@ -255,33 +298,68 @@ function setupScrollToTop() {
             });
         });
         
-        console.log('Scroll to top setup complete');
+        console.log('⬆️ Scroll to top setup complete');
     } catch (error) {
-        console.error('Error setting up scroll to top:', error);
+        console.error('❌ Error setting up scroll to top:', error);
     }
 }
 
 // Profile image error handler
+function setupProfileImage() {
+    try {
+        const profileImg = document.getElementById('profileImg');
+        if (profileImg) {
+            profileImg.onerror = function() {
+                console.log('⚠️ Profile image failed to load, using fallback');
+                this.style.display = 'none';
+                
+                const fallback = document.createElement('div');
+                fallback.style.cssText = `
+                    width: 100%;
+                    height: 100%;
+                    background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-size: 4rem;
+                    font-weight: 800;
+                    color: white;
+                    border-radius: inherit;
+                `;
+                fallback.textContent = 'C';
+                
+                // Remove the error handler and image element
+                this.parentElement.appendChild(fallback);
+                this.remove();
+            };
+        }
+    } catch (error) {
+        console.error('❌ Error setting up profile image:', error);
+    }
+}
+
+// Add performance monitoring
 window.addEventListener('load', function() {
-    const profileImg = document.getElementById('profileImg');
-    if (profileImg) {
-        profileImg.onerror = function() {
-            this.style.display = 'none';
-            const fallback = document.createElement('div');
-            fallback.style.cssText = `
-                width: 100%;
-                height: 100%;
-                background: linear-gradient(135deg, #00d4ff, #ff6b6b);
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                font-size: 4rem;
-                font-weight: 800;
-                color: white;
-                border-radius: inherit;
-            `;
-            fallback.textContent = 'C';
-            this.parentElement.appendChild(fallback);
-        };
+    console.log('📊 Page fully loaded');
+    
+    // Log performance metrics
+    if (window.performance) {
+        const perfData = window.performance.timing;
+        const pageLoadTime = perfData.loadEventEnd - perfData.navigationStart;
+        console.log(`⏱️ Page load time: ${pageLoadTime}ms`);
+    }
+});
+
+// Add error tracking
+window.addEventListener('error', function(e) {
+    console.error('🔴 Global error caught:', e.error);
+});
+
+// Handle visibility change
+document.addEventListener('visibilitychange', function() {
+    if (document.hidden) {
+        console.log('👋 Page hidden');
+    } else {
+        console.log('👀 Page visible');
     }
 });
