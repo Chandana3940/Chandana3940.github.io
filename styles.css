@@ -83,6 +83,7 @@ body {
     color: var(--text-gray);
     font-size: 28px;
     cursor: pointer;
+    z-index: 10;
 }
 
 /* Profile Section */
@@ -97,8 +98,7 @@ body {
     margin: 0 auto 20px;
     border-radius: 50%;
     overflow: hidden;
-    background: var(--gradient);
-    padding: 4px;
+    background: var(--bg-card);
 }
 
 .avatar-box img {
@@ -121,48 +121,9 @@ body {
     padding: 0 10px;
 }
 
-/* Contact Button */
-.contact-btn {
-    width: 100%;
-    background: var(--bg-hover);
-    border: none;
-    color: var(--text-white);
-    padding: 12px;
-    border-radius: 10px;
-    cursor: pointer;
-    font-size: 0.9rem;
-    font-weight: 500;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    margin: 20px 0 15px 0;
-    transition: all 0.3s;
-}
-
-.contact-btn:hover {
-    background: var(--bg-dark);
-}
-
-.arrow {
-    font-size: 0.7rem;
-    transition: transform 0.3s;
-}
-
-.contact-btn.active .arrow {
-    transform: rotate(180deg);
-}
-
-/* Contact List */
-.contact-list {
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.3s;
+/* Contact List - Static (always visible) */
+.contact-list-static {
     margin-bottom: 20px;
-}
-
-.contact-list.show {
-    max-height: 500px;
 }
 
 .contact-item {
@@ -197,6 +158,7 @@ body {
     text-decoration: none;
     font-size: 0.85rem;
     transition: color 0.3s;
+    word-break: break-word;
 }
 
 .details a:hover {
@@ -444,6 +406,7 @@ body {
     justify-content: center;
     background: var(--bg-hover);
     border-radius: 12px;
+    flex-shrink: 0;
 }
 
 .service-text h4 {
@@ -577,20 +540,21 @@ body {
 
 /* Contact Section */
 .contact-section {
-    max-width: 700px;
+    max-width: 800px;
 }
 
 .intro-text {
     color: var(--text-gray);
     font-size: 1rem;
     line-height: 1.8;
-    margin-bottom: 35px;
+    margin-bottom: 20px;
 }
 
 .contact-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 20px;
+    margin-top: 35px;
 }
 
 .contact-card {
@@ -672,11 +636,11 @@ body {
     
     .main {
         margin-left: 0;
-        padding: 90px 20px 30px;
+        padding: 100px 20px 30px;
     }
     
     .navbar {
-        left: 20px;
+        left: 80px;
         right: 20px;
         top: 15px;
     }
@@ -687,7 +651,7 @@ body {
     }
     
     .nav-link {
-        padding: 15px;
+        padding: 15px 12px;
         font-size: 0.85rem;
     }
     
@@ -725,7 +689,7 @@ body {
 
 @media (max-width: 480px) {
     .nav-link {
-        padding: 15px 10px;
+        padding: 15px 8px;
         font-size: 0.8rem;
     }
     
@@ -736,5 +700,9 @@ body {
     .skill-tag {
         font-size: 0.8rem;
         padding: 7px 12px;
+    }
+    
+    .navbar {
+        left: 75px;
     }
 }
