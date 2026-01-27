@@ -119,8 +119,8 @@ body {
 
 .contact-item {
     display: flex;
-    gap: 12px;
-    padding: 12px 0;
+    gap: 10px;
+    padding: 10px 0;
     border-bottom: 1px solid var(--border);
 }
 
@@ -129,7 +129,7 @@ body {
 }
 
 .icon {
-    font-size: 1.2rem;
+    font-size: 1rem;
 }
 
 .details {
@@ -137,18 +137,19 @@ body {
 }
 
 .label {
-    font-size: 0.75rem;
+    font-size: 0.7rem;
     color: var(--text-muted);
     text-transform: uppercase;
     letter-spacing: 0.5px;
-    margin-bottom: 4px;
+    margin-bottom: 3px;
 }
 
 .details a {
     color: var(--text-gray);
     text-decoration: none;
-    font-size: 0.85rem;
+    font-size: 0.75rem;
     word-break: break-word;
+    line-height: 1.3;
 }
 
 .details a:hover {
@@ -157,13 +158,14 @@ body {
 
 .details p {
     color: var(--text-gray);
-    font-size: 0.85rem;
+    font-size: 0.75rem;
+    line-height: 1.3;
 }
 
 .divider {
     height: 1px;
     background: var(--border);
-    margin: 25px 0;
+    margin: 20px 0;
 }
 
 .social {
